@@ -1,0 +1,43 @@
+version: "3.8"
+
+services:
+  auth-service:
+    build: ./services/auth-service
+    ports:
+      - "3001:3001"
+
+  product-service:
+    build: ./services/product-service
+    ports:
+      - "3002:3002"
+
+  order-service:
+    build: ./services/order-service
+    ports:
+      - "3004:3004"
+
+  cart-service:
+    build: ./services/cart-service
+    restart: always
+    ports:
+      - "3003:3003"
+
+  frontend:
+    build: ./apps/frontend
+    ports:
+      - "3000:3000"
+    environment:
+    - CART_SERVICE_URL=http://cart-service:3003
+    - ORDER_SERVICE_URL=http://order-service:3004
+    - PRODUCT_SERVICE_URL=http://product-service:3002
+    depends_on:
+      - auth-service
+      - product-service
+      - cart-service
+      - order-service
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"

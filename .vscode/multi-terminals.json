@@ -1,0 +1,33 @@
+[
+  {
+    "label": "Launch All Microservices",
+    "commands": [
+      {
+        "name": "Frontend",
+        "main": true,
+        "script": "npm run dev",
+        "cwd": "apps/frontend"
+      },
+      {
+        "name": "Auth Service",
+        "script": "npm run dev",
+        "cwd": "services/auth-service"
+      },
+      {
+        "name": "Cart Service",
+        "script": "npm run dev",
+        "cwd": "services/cart-service"
+      },
+      {
+        "name": "Order Service",
+        "script": "npm run dev",
+        "cwd": "services/order-service"
+      },
+      {
+        "name": "Product Service",
+        "script": "npm run dev",
+        "cwd": "services/product-service"
+      }
+    ]
+  }
+]
