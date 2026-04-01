@@ -1,14 +1,11 @@
 <div align="center">
-
-```
-╔══════════════════════════════════════════════════════════════╗
-║         🚀  M I C R O S E R V I C E S  P L A Y G R O U N D         ║
-║      Exposing what most backends try to hide — visually      ║
-╚══════════════════════════════════════════════════════════════╝
-```
-
-**Visualizing how distributed backend systems actually work — not just building them.**
-
+ 
+<h1>🚀 M I C R O S E R V I C E S &nbsp; P L A Y G R O U N D</h1>
+ 
+<p><i>Exposing what most backends try to hide — visually</i></p>
+ 
+<p><b>Visualizing how distributed backend systems actually work — not just building them.</b></p>
+ 
 [![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white)](https://nodejs.org)
 [![Express](https://img.shields.io/badge/Express-000000?style=flat-square&logo=express&logoColor=white)](https://expressjs.com)
 [![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat-square&logo=nextdotjs&logoColor=white)](https://nextjs.org)
@@ -16,7 +13,7 @@
 [![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)](https://www.docker.com)
 [![JWT](https://img.shields.io/badge/JWT-000000?style=flat-square&logo=jsonwebtokens&logoColor=white)](https://jwt.io)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
-
+ 
 </div>
 
 ---
