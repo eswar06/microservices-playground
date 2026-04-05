@@ -1,8 +1,8 @@
 const amqp = require("amqplib");
 
 async function publishEvent(event) {
-  // const connection = await amqp.connect("amqp://rabbitmq");
-  const connection = await amqp.connect("amqp://localhost");
+  const connection = await amqp.connect(process.env.RABBITMQ_URL);
+  // const connection = await amqp.connect("amqp://localhost");
   const channel = await connection.createChannel();
 
   const queue = "order_events";

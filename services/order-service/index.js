@@ -19,7 +19,7 @@ app.post("/orders", authMiddleware, async (req, res) => {
   console.log(`Placing order for user: ${userEmail}`);
   // Fetch cart from Cart Service
   // const cartRes = await fetch("http://cart-service:3003/cart", {
-  const cartRes = await fetch("http://localhost:3003/cart", {
+  const cartRes = await fetch(process.env.CART_SERVICE_URL + "/cart", {
     headers: {
       Authorization: req.headers.authorization
     }
@@ -60,6 +60,6 @@ app.get("/orders", authMiddleware, (req, res) => {
   res.json(userOrders);
 });
 
-app.listen(3004, () => {
-  console.log("Order service running on 3004");
+app.listen(process.env.ORDER_PORT,"0.0.0.0", () => {
+  console.log(`Order service running on port ${process.env.ORDER_PORT}`);
 });

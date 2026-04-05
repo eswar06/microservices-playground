@@ -18,6 +18,6 @@ app.get('/products',authMiddleware, (req, res) => {
   res.json(products);
 });
 
-app.listen(3002, () => {
-  console.log("Product service on port 3002");
+app.listen(process.env.PRODUCT_PORT,"0.0.0.0", () => {
+  console.log(`Product service on port ${process.env.PRODUCT_PORT}`);
 });

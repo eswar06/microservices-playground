@@ -18,8 +18,8 @@ async function consumeEvents() {
     try {
       console.log("Connecting to RabbitMQ...");
 
-      // const connection = await amqp.connect("amqp://rabbitmq");
-      const connection = await amqp.connect("amqp://localhost");
+      const connection = await amqp.connect(process.env.RABBITMQ_URL);
+      // const connection = await amqp.connect("amqp://localhost");
       const channel = await connection.createChannel();
 
       const queue = "order_events";
@@ -96,7 +96,7 @@ app.delete("/cart/remove", authMiddleware, (req, res) => {
     }
 });
 
-app.listen(3003, () => {
-  console.log("Cart service running on 3003");
+app.listen(process.env.CART_PORT,"0.0.0.0", () => {
+  console.log(`Cart service running on port ${process.env.CART_PORT}`);
   consumeEvents();
 });

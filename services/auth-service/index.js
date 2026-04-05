@@ -32,7 +32,7 @@ app.post("/login", async (req, res) => {
   }else{
     const isMatch = bcrypt.compare(password,user.password)
     if(isMatch){
-      var token = jwt.sign({ email }, "secretkey", { expiresIn: "1h" });
+      var token = jwt.sign({ email }, process.env.SECRET_KEY, { expiresIn: "1h" });
       res.json({ token });
     }else{
       res.status(400).json({ message: "Invalid credentials" });
@@ -40,6 +40,6 @@ app.post("/login", async (req, res) => {
   }
 })
 
-app.listen(3001, () => {
-  console.log("Auth service on port 3001");
+app.listen(process.env.AUTH_PORT,"0.0.0.0", () => {
+  console.log(`Auth service on port ${process.env.AUTH_PORT}`);
 });
