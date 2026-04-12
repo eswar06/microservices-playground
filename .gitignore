@@ -4,6 +4,9 @@ node_modules/
 # next build
 .next/
 
+#vscode
+.vscode/
+
 # env files
 .env
 .env.local

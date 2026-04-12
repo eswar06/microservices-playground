@@ -1,5 +1,5 @@
 {
-  "name": "order-service",
+  "name": "socket-service",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -12,12 +12,11 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "amqplib": "^0.10.9",
+    "amqplib": "^1.0.3",
     "cors": "^2.8.6",
     "dotenv": "^17.4.0",
     "express": "^5.2.1",
-    "jsonwebtoken": "^9.0.3",
-    "node-fetch": "^3.3.2",
-    "nodemon": "^3.1.14"
+    "nodemon": "^3.1.14",
+    "socket.io": "^4.8.3"
   }
 }

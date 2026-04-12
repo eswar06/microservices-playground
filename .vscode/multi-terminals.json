@@ -27,6 +27,11 @@
         "name": "Product Service",
         "script": "npm run dev",
         "cwd": "services/product-service"
+      },
+      {
+        "name": "Socket Service",
+        "script": "npm run dev",
+        "cwd": "services/socket-service"
       }
     ]
   }

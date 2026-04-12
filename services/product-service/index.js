@@ -2,7 +2,8 @@ const express = require('express');
 const authMiddleware = require('./authmiddleware');
 const app = express();
 app.use(express.json());
-
+const dotenv = require("dotenv");
+dotenv.config();
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.path}`);
   next();

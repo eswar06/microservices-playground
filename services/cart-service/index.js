@@ -3,7 +3,9 @@ const jwt = require("jsonwebtoken");
 const authMiddleware = require("./authmiddleware");
 const app = express();
 const amqp = require("amqplib");
-
+const dotenv = require("dotenv");
+const { publishEvent } = require("./publishEvent");
+dotenv.config();
 
 app.use(express.json());
 
@@ -17,27 +19,35 @@ async function consumeEvents() {
   while (retries < MAX_RETRIES) {
     try {
       console.log("Connecting to RabbitMQ...");
-
+      console.log("Using RabbitMQ URL:", process.env.RABBITMQ_URL);
       const connection = await amqp.connect(process.env.RABBITMQ_URL);
       // const connection = await amqp.connect("amqp://localhost");
       const channel = await connection.createChannel();
 
-      const queue = "order_events";
-      await channel.assertQueue(queue);
+      const exchange = "events";
 
-      console.log("Connected to RabbitMQ ✅");
+      await channel.assertExchange(exchange, "fanout", {
+        durable: false,
+      });
+       console.log("Connected to RabbitMQ ✅");
 
-      channel.consume(queue, (msg) => {
+      const q = await channel.assertQueue("", { exclusive: true });
+
+      await channel.bindQueue(q.queue, exchange, "");
+      channel.consume(q.queue, async (msg) => {
+        
         const event = JSON.parse(msg.content.toString());
-
-        if (event.type === "ORDER_PLACED") {
-          const userEmail = event.data.user;
+        if (event.step === "EVENT_PUBLISHED") {
+          const userEmail = event?.data?.user;
           carts[userEmail] = [];
-
           console.log("Cart cleared for:", userEmail);
+          await publishEvent({
+            type: "FLOW_STEP",
+            flow: "PLACE_ORDER",
+            step: "STATE_UPDATED",
+          });
         }
-
-        channel.ack(msg);
+        console.log("Cart received:", event);
       });
 
       break; // exit loop after success
@@ -63,10 +73,16 @@ app.use((req, res, next) => {
 app.get("/cart", authMiddleware, (req, res) => {
    const userEmail = req.user.email;
    console.log(`Fetching cart for user: ${userEmail}`);
+   console.log(`Current cart for ${userEmail}:`, carts[userEmail] || []);
    res.json(carts[userEmail] || [])
 });
 
-app.post("/cart/add", authMiddleware, (req, res) => {
+app.post("/cart/add", authMiddleware, async (req, res) => {
+    await publishEvent({
+      type: "FLOW_STEP",
+      flow: "PRODUCT_ADD",
+      step: "CART_SERVICE_RECEIVED",
+    });
     console.log(`Adding item to cart for user: ${req.user.email}`);
     const userEmail = req.user.email;
     const { productId, quantity } = req.body;
@@ -74,6 +90,11 @@ app.post("/cart/add", authMiddleware, (req, res) => {
         carts[userEmail] = [];
     }
     // carts[userEmail].push({ productId, quantity });
+    await publishEvent({
+      type: "FLOW_STEP",
+      flow: "PRODUCT_ADD",
+      step: "ITEMS_ADDED",
+    });
     const existingItemIndex = carts[userEmail].findIndex(item => item.productId === productId);
 
     if(existingItemIndex >= 0){
@@ -82,7 +103,13 @@ app.post("/cart/add", authMiddleware, (req, res) => {
         carts[userEmail].push({ productId, quantity });
     }
     console.log(`Current cart for ${userEmail}:`, carts[userEmail]);
+    await publishEvent({
+      type: "FLOW_STEP",
+      flow: "PRODUCT_ADD",
+      step: "CART_UPDATED",
+    });
     res.json({ message: "Item added to cart" });
+
 });
 
 app.delete("/cart/remove", authMiddleware, (req, res) => {

@@ -2,7 +2,8 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const authMiddleware = require("./authmiddleware");
 const { publishEvent } = require("./publishservice");
-
+const dotenv = require("dotenv");
+dotenv.config();
 const app = express();
 app.use(express.json());
 
@@ -17,6 +18,15 @@ app.use((req, res, next) => {
 app.post("/orders", authMiddleware, async (req, res) => {
   const userEmail = req.user.email;
   console.log(`Placing order for user: ${userEmail}`);
+  try {
+    await publishEvent({
+      type: "FLOW_STEP",
+      flow: "PLACE_ORDER",
+      step: "ORDER_SERVICE"
+    })
+  } catch (err) {
+    console.error("Event publish failed:", err);
+  }
   // Fetch cart from Cart Service
   // const cartRes = await fetch("http://cart-service:3003/cart", {
   const cartRes = await fetch(process.env.CART_SERVICE_URL + "/cart", {
@@ -42,7 +52,9 @@ app.post("/orders", authMiddleware, async (req, res) => {
   try {
       console.log("Publishing event for order:", newOrder);
       await publishEvent({
-        type: "ORDER_PLACED",
+        type: "FLOW_STEP",
+        flow: "PLACE_ORDER",
+        step: "EVENT_PUBLISHED",
         data: newOrder
       });
     } catch (err) {
