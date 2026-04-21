@@ -2,8 +2,8 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import Mainlayout from "../components/layout/Mainlayout";
-import Header from "../components/layout/Header";
+import Mainlayout from "../../components/layout/Mainlayout";
+import Header from "../../components/layout/Header";
 
 const SERVICES = [
   { name: "Auth Service",    desc: "JWT login & signup",           proto: "REST",        color: "#f97316" },

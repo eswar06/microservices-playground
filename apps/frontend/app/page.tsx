@@ -1,7 +1,7 @@
 //products page
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import AddProduct from "./components/features/AddProduct";
+import AddProduct from "../components/features/AddProduct";
 
 export const dynamic = "force-dynamic";
 

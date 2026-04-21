@@ -9,8 +9,8 @@ import Stepslayout from "../layout/Stepslayout";
 import Mainlayout from "../layout/Mainlayout";
 import { PLACE_ORDER_LABELS, PLACE_ORDER_STEPS } from "../../constant/constant";
 import { getSocket } from "../../lib/socket";
-import { processQueueNew } from "../../utils/page";
-import { createOrder } from "@/app/api/orders/page";
+import { processQueueNew } from "../../utils/utils";
+import { createOrder } from "@/services/orders/route";
 
 const socket = getSocket()
 

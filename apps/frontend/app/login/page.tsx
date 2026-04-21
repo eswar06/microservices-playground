@@ -2,16 +2,16 @@
 
 import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
-import ApiFlowVisualizer from "../components/ui/ApiFlowVisualizer";
-import Header from "../components/layout/Header";
-import { useToast } from "../components/ui/ToastProvider";
-import Stepslayout from "../components/layout/Stepslayout";
-import Mainlayout from "../components/layout/Mainlayout";
-import { LOGIN_STEPS, LOGIN_FLOW_LABELS } from "../constant/constant";
-import Button from "../components/ui/Button";
-import { getSocket } from "../lib/socket";
-import { processQueueNew } from "../utils/page";
-import { login } from "../api/auth/login/page";
+import ApiFlowVisualizer from "../../components/ui/ApiFlowVisualizer";
+import Header from "../../components/layout/Header";
+import { useToast } from "../../components/ui/ToastProvider";
+import Stepslayout from "../../components/layout/Stepslayout";
+import Mainlayout from "../../components/layout/Mainlayout";
+import { LOGIN_STEPS, LOGIN_FLOW_LABELS } from "../../constant/constant";
+import Button from "../../components/ui/Button";
+import { getSocket } from "../../lib/socket";
+import { processQueueNew } from "../../utils/utils";
+import { login } from "../../services/auth/login/route";
 
 const socket = getSocket();
 

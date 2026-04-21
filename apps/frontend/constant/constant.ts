@@ -1,5 +1,5 @@
 // helper to generate A, B, C...
-import { generateLabels } from "../utils/page";
+import { generateLabels } from "../utils/utils";
 
 // common steps
 const COMMON_STEPS = [

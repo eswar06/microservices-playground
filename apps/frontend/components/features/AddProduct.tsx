@@ -11,8 +11,8 @@ import Stepslayout from "../layout/Stepslayout";
 import Mainlayout from "../layout/Mainlayout";
 import { CART_LABELS, CART_STEPS } from "../../constant/constant";
 import { getSocket } from "../../lib/socket";
-import { processQueueNew } from "../../utils/page"
-import { addToCart } from "@/app/api/cart/add/page";
+import { processQueueNew } from "../../utils/utils"
+import { addToCart } from "@/services/cart/add/route";
 
 const socket = getSocket();
 

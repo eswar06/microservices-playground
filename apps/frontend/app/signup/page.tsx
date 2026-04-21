@@ -2,17 +2,17 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import ApiFlowVisualizer from "../components/ui/ApiFlowVisualizer";
-import Header from "../components/layout/Header";
-import { useToast } from "../components/ui/ToastProvider";
-import Stepslayout from "../components/layout/Stepslayout";
-import Mainlayout from "../components/layout/Mainlayout";
-import { SIGNUP_FLOW_LABELS, SIGNUP_STEPS } from "../constant/constant";
-import Button from "../components/ui/Button";
-import { getSocket } from "../lib/socket";
-import { processQueueNew } from "../utils/page";
+import ApiFlowVisualizer from "../../components/ui/ApiFlowVisualizer";
+import Header from "../../components/layout/Header";
+import { useToast } from "../../components/ui/ToastProvider";
+import Stepslayout from "../../components/layout/Stepslayout";
+import Mainlayout from "../../components/layout/Mainlayout";
+import { SIGNUP_FLOW_LABELS, SIGNUP_STEPS } from "../../constant/constant";
+import Button from "../../components/ui/Button";
+import { getSocket } from "../../lib/socket";
+import { processQueueNew } from "../../utils/utils";
 import { sign } from "crypto";
-import { signup } from "../api/auth/signup/page";
+import { signup } from "../../services/auth/signup/route";
 
 const socket = getSocket();
 

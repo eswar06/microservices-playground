@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
-import PlaceOrder from "../components/features/PlaceOrder";
+import PlaceOrder from "../../components/features/PlaceOrder";
 import { redirect } from "next/navigation";
 export const dynamic = "force-dynamic";
 
