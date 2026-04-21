@@ -6,6 +6,14 @@ const amqp = require("amqplib");
 const dotenv = require("dotenv");
 const { publishEvent } = require("./publishEvent");
 dotenv.config();
+const cors = require("cors");
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true, // important for cookies
+  })
+);
+
 
 app.use(express.json());
 

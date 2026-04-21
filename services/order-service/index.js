@@ -3,8 +3,17 @@ const jwt = require("jsonwebtoken");
 const authMiddleware = require("./authmiddleware");
 const { publishEvent } = require("./publishservice");
 const dotenv = require("dotenv");
+const cors = require("cors");
 dotenv.config();
 const app = express();
+
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true, // important for cookies
+  })
+);
+
 app.use(express.json());
 
 const orders = [];

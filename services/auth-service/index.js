@@ -5,7 +5,16 @@ const users = [{ email: "eswarvinnakota06@gmail.com", password: "$2a$10$..." }];
 const app = express();
 const dotenv = require("dotenv");
 const publishEvent = require("./publishEvent").publishEvent;
+const cors = require("cors");
+const { checkUserExists } = require("./utils/util");
 dotenv.config();
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true, // important for cookies
+  })
+);
+
 app.use(express.json());
 
 app.use((req, res, next) => {
@@ -26,8 +35,15 @@ const authServiceLog = async (req, res, next) => {
 app.use(authServiceLog);
 
 app.post("/signup", async (req, res) => {
+  console.log("Signup request received");
   const { email, password } = req.body;
 
+  try{
+    checkUserExists(email, users);
+  }catch(err){
+    return res.status(400).json({ message: err.message });
+  }
+  
   await publishEvent({
     type: "FLOW_STEP",
     flow: "SIGNUP",
@@ -38,11 +54,19 @@ app.post("/signup", async (req, res) => {
 
   users.push({ email, password: hashedPassword });
 
+
   await publishEvent({
     type: "FLOW_STEP",
     flow: "SIGNUP",
     step: "USER_CREATED",
   });
+
+  await publishEvent({
+    type: "FLOW_STEP",
+    flow: "SIGNUP",
+    step: "READY_FOR_LOGIN",
+  });
+
 
   res.json({ message: "User created" });
 });
@@ -67,6 +91,12 @@ app.post("/login", async (req, res) => {
         type: "FLOW_STEP",
         flow: "LOGIN",
         step: "TOKEN_ISSUED",
+      });
+
+      await publishEvent({
+          type: "FLOW_STEP",
+          flow: "LOGIN",
+          step: "SESSION_ACTIVE",
       });
       res.json({ token });
     } else {
