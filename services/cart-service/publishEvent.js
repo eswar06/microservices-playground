@@ -2,7 +2,7 @@ const amqp = require("amqplib");
 
 async function publishEvent(event) {
   const connection = await amqp.connect(process.env.RABBITMQ_URL);
-  // const connection = await amqp.connect("amqp://localhost");
+  // const connection = await amqp.connect("amqp://13.63.239.214");
   console.log(process.env.RABBITMQ_URL);
   const channel = await connection.createChannel();
 

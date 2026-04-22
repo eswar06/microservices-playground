@@ -10,7 +10,7 @@ services:
     - AUTH_PORT=3001
     - SECRET_KEY=t5FtCovFRPWCKx3qG8fLpSHQ
     - RABBITMQ_URL=amqp://rabbitmq
-    - FRONTEND_URL=http://localhost:3000
+    - FRONTEND_URL=http://13.63.239.214:3000
     depends_on:
       rabbitmq:
         condition: service_healthy
@@ -24,7 +24,7 @@ services:
     - PRODUCT_PORT=3002
     - SECRET_KEY=t5FtCovFRPWCKx3qG8fLpSHQ
     - RABBITMQ_URL=amqp://rabbitmq
-    - FRONTEND_URL=http://localhost:3000
+    - FRONTEND_URL=http://13.63.239.214:3000
     depends_on:
       rabbitmq:
         condition: service_healthy
@@ -39,7 +39,7 @@ services:
     - ORDER_PORT=3004
     - CART_SERVICE_URL=http://cart-service:3003
     - SECRET_KEY=t5FtCovFRPWCKx3qG8fLpSHQ
-    - FRONTEND_URL=http://localhost:3000
+    - FRONTEND_URL=http://13.63.239.214:3000
     depends_on:
       rabbitmq:
         condition: service_healthy
@@ -53,7 +53,7 @@ services:
     - RABBITMQ_URL=amqp://rabbitmq
     - CART_PORT=3003
     - SECRET_KEY=t5FtCovFRPWCKx3qG8fLpSHQ
-    - FRONTEND_URL=http://localhost:3000
+    - FRONTEND_URL=http://13.63.239.214:3000
     depends_on:
       rabbitmq:
         condition: service_healthy

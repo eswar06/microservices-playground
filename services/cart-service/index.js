@@ -29,7 +29,7 @@ async function consumeEvents() {
       console.log("Connecting to RabbitMQ...");
       console.log("Using RabbitMQ URL:", process.env.RABBITMQ_URL);
       const connection = await amqp.connect(process.env.RABBITMQ_URL);
-      // const connection = await amqp.connect("amqp://localhost");
+      // const connection = await amqp.connect("amqp://13.63.239.214");
       const channel = await connection.createChannel();
 
       const exchange = "events";

@@ -1,4 +1,4 @@
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://13.63.239.214:5000";
 
 // Helper to get cookie token
 const getTokenFromCookies = () => {
