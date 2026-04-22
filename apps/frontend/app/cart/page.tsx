@@ -6,8 +6,10 @@ export const dynamic = "force-dynamic";
 async function getCart() {
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value;
-
-  const res = await fetch(process.env.NEXT_PUBLIC_CART_SERVICE_URL + "/cart", {
+  const url = typeof window === "undefined"
+    ? process.env.CART_SERVICE_URL
+    : process.env.NEXT_PUBLIC_CART_SERVICE_URL;
+  const res = await fetch(url + "/cart", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

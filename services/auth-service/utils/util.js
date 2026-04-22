@@ -1,5 +1,10 @@
-export const checkUserExists = (email, users) => {
+const checkUserExists = (email, users) => {
   if (users.find((u) => u.email === email)) {
-    throw new Error("User already exists");
+    return true;
   }
+  return false;
+}
+
+module.exports = {
+  checkUserExists
 }

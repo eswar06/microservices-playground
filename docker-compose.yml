@@ -10,9 +10,10 @@ services:
     - AUTH_PORT=3001
     - SECRET_KEY=t5FtCovFRPWCKx3qG8fLpSHQ
     - RABBITMQ_URL=amqp://rabbitmq
-    - FRONTEND_URL= http://frontend:3000
+    - FRONTEND_URL=http://localhost:3000
     depends_on:
-    - rabbitmq
+      rabbitmq:
+        condition: service_healthy
 
   product-service:
     build: ./services/product-service
@@ -23,9 +24,10 @@ services:
     - PRODUCT_PORT=3002
     - SECRET_KEY=t5FtCovFRPWCKx3qG8fLpSHQ
     - RABBITMQ_URL=amqp://rabbitmq
-    - FRONTEND_URL= http://frontend:3000
+    - FRONTEND_URL=http://localhost:3000
     depends_on:
-    - rabbitmq
+      rabbitmq:
+        condition: service_healthy
 
   order-service:
     build: ./services/order-service
@@ -37,9 +39,10 @@ services:
     - ORDER_PORT=3004
     - CART_SERVICE_URL=http://cart-service:3003
     - SECRET_KEY=t5FtCovFRPWCKx3qG8fLpSHQ
-    - FRONTEND_URL= http://frontend:3000
+    - FRONTEND_URL=http://localhost:3000
     depends_on:
-    - rabbitmq
+      rabbitmq:
+        condition: service_healthy
 
   cart-service:
     build: ./services/cart-service
@@ -50,9 +53,10 @@ services:
     - RABBITMQ_URL=amqp://rabbitmq
     - CART_PORT=3003
     - SECRET_KEY=t5FtCovFRPWCKx3qG8fLpSHQ
-    - FRONTEND_URL= http://frontend:3000
+    - FRONTEND_URL=http://localhost:3000
     depends_on:
-    - rabbitmq
+      rabbitmq:
+        condition: service_healthy
   
   socket-service:
     build: ./services/socket-service
@@ -63,7 +67,8 @@ services:
     - RABBITMQ_URL=amqp://rabbitmq
     - SOCKET_PORT=3005
     depends_on:
-    - rabbitmq
+     rabbitmq:
+      condition: service_healthy
 
   frontend:
     build: ./apps/frontend
@@ -71,11 +76,11 @@ services:
     ports:
       - "3000:3000"
     environment:
-    - NEXT_PUBLIC_CART_SERVICE_URL=http://cart-service:3003
-    - NEXT_PUBLIC_ORDER_SERVICE_URL= http://order-service:3004
-    - NEXT_PUBLIC_PRODUCT_SERVICE_URL= http://product-service:3002
-    - NEXT_PUBLIC_AUTH_SERVICE_URL= http://auth-service:3001
-    - NEXT_PUBLIC_SOCKET_SERVICE_URL= http://socket-service:3005
+    - AUTH_SERVICE_URL=http://auth-service:3001
+    - CART_SERVICE_URL=http://cart-service:3003
+    - PRODUCT_SERVICE_URL=http://product-service:3002
+    - ORDER_SERVICE_URL=http://order-service:3004
+    - SOCKET_SERVICE_URL=http://socket-service:3005
     depends_on:
       - auth-service
       - product-service
@@ -89,3 +94,8 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10

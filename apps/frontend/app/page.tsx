@@ -7,8 +7,10 @@ export const dynamic = "force-dynamic";
 
 async function fetchProducts() {
   const token = (await cookies()).get("token")?.value;
-
-  const res = await fetch(process.env.NEXT_PUBLIC_PRODUCT_SERVICE_URL + "/products", {
+  const url = typeof window === "undefined"
+    ? process.env.PRODUCT_SERVICE_URL
+    : process.env.NEXT_PUBLIC_PRODUCT_SERVICE_URL;
+  const res = await fetch(url + "/products", {
     cache: "no-store",
     headers: {
       Authorization: `Bearer ${token}`,

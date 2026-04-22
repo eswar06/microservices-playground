@@ -38,12 +38,10 @@ app.post("/signup", async (req, res) => {
   console.log("Signup request received");
   const { email, password } = req.body;
 
-  try{
-    checkUserExists(email, users);
-  }catch(err){
-    return res.status(400).json({ message: err.message });
+  if (userExists) {
+    return res.status(400).json({ message: "User already exists" });
   }
-  
+
   await publishEvent({
     type: "FLOW_STEP",
     flow: "SIGNUP",
