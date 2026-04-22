@@ -9,6 +9,8 @@ RUN npm install --omit=dev
 # copy built app + source
 COPY . .
 
+RUN npm run build
+
 EXPOSE 3000
 
 CMD ["npm", "start"]
