@@ -75,12 +75,6 @@ services:
     restart: always
     ports:
       - "3000:3000"
-    environment:
-    - AUTH_SERVICE_URL=http://13.63.239.214:3001
-    - CART_SERVICE_URL=http://13.63.239.214:3003
-    - PRODUCT_SERVICE_URL=http://13.63.239.214:3002
-    - ORDER_SERVICE_URL=http://13.63.239.214:3004
-    - SOCKET_SERVICE_URL=http://13.63.239.214:3005
     depends_on:
       - auth-service
       - product-service
@@ -99,3 +93,10 @@ services:
       interval: 5s
       timeout: 5s
       retries: 10
+
+    # environment:
+    # - AUTH_SERVICE_URL=http://13.63.239.214:3001
+    # - CART_SERVICE_URL=http://13.63.239.214:3003
+    # - PRODUCT_SERVICE_URL=http://13.63.239.214:3002
+    # - ORDER_SERVICE_URL=http://13.63.239.214:3004
+    # - SOCKET_SERVICE_URL=http://13.63.239.214:3005
