@@ -37,7 +37,7 @@ services:
     environment:
     - RABBITMQ_URL=amqp://rabbitmq
     - ORDER_PORT=3004
-    - CART_SERVICE_URL=http://cart-service:3003
+    - CART_SERVICE_URL=http://13.63.239.214:3003
     - SECRET_KEY=t5FtCovFRPWCKx3qG8fLpSHQ
     - FRONTEND_URL=http://13.63.239.214:3000
     depends_on:
@@ -76,11 +76,11 @@ services:
     ports:
       - "3000:3000"
     environment:
-    - AUTH_SERVICE_URL=http://auth-service:3001
-    - CART_SERVICE_URL=http://cart-service:3003
-    - PRODUCT_SERVICE_URL=http://product-service:3002
-    - ORDER_SERVICE_URL=http://order-service:3004
-    - SOCKET_SERVICE_URL=http://socket-service:3005
+    - AUTH_SERVICE_URL=http://13.63.239.214:3001
+    - CART_SERVICE_URL=http://13.63.239.214:3003
+    - PRODUCT_SERVICE_URL=http://13.63.239.214:3002
+    - ORDER_SERVICE_URL=http://13.63.239.214:3004
+    - SOCKET_SERVICE_URL=http://13.63.239.214:3005
     depends_on:
       - auth-service
       - product-service
