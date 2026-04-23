@@ -7,7 +7,7 @@ export const dynamic = "force-dynamic";
 
 async function fetchProducts() {
   const token = (await cookies()).get("token")?.value;
-  const url = process.env.PRODUCT_SERVICE_URL;
+  const url = process.env.NEXT_PUBLIC_PRODUCT_SERVICE_URL ;
   const res = await fetch(url + "/products", {
     cache: "no-store",
     headers: {

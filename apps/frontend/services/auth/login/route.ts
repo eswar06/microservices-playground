@@ -1,7 +1,7 @@
 import { apiFetch } from "../../apiClient";
 
 export const login = async (email: string, password: string) => {
-  const url = process.env.AUTH_SERVICE_URL
+  const url = process.env.NEXT_PUBLIC_AUTH_SERVICE_URL ;
   const data = await apiFetch(url + "/login", {
     method: "POST",
     body: JSON.stringify({ email, password }),
